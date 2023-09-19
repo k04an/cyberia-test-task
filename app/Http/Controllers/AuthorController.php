@@ -72,7 +72,8 @@ class AuthorController extends Controller
             ]);
         }
         return view('author/index', [
-            'context' => $context
+            'context' => $context,
+            'navCategory' => 'authors'
         ]);
     }
 }

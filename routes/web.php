@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 // Логика аутентификации
-Route::middleware('auth')->get('/', function () { return view('dashboard'); })->name('home');
+Route::middleware('auth')->get('/', function () { return view('dashboard', ['navCategory' => 'none']); })->name('home');
 Route::get('/login', function () {
     if (Auth::check()) {
         return redirect(route('home'));
@@ -28,12 +28,15 @@ Route::middleware('auth')->get('/logout', [\App\Http\Controllers\AuthController:
 Route::middleware('auth')->prefix('/genres')->group(function () {
     Route::get('/', function () {
        return view('genre/index', [
-           'genres' => \App\Models\Genre::all()
+           'genres' => \App\Models\Genre::all(),
+           'navCategory' => 'genres'
        ]);
     })->name('genres');
 
     Route::get('/add', function () {
-        return view('genre/add');
+        return view('genre/add', [
+            'navCategory' => 'genres'
+        ]);
     })->name('genres-add');
 
     Route::post('/add', [\App\Http\Controllers\GenreController::class, 'create']);
@@ -42,7 +45,8 @@ Route::middleware('auth')->prefix('/genres')->group(function () {
 
     Route::get('/edit/{id}', function ($id) {
         return view('genre/edit', [
-            'genre' => \App\Models\Genre::find($id)
+            'genre' => \App\Models\Genre::find($id),
+            'navCategory' => 'genres'
         ]);
     })->name('genre-update');
 
@@ -54,7 +58,9 @@ Route::middleware('auth')->prefix('/authors')->group(function () {
     Route::get('/', [\App\Http\Controllers\AuthorController::class, 'index'])->name('authors');
 
     Route::get('/add', function () {
-        return view('author/add');
+        return view('author/add', [
+            'navCategory' => 'authors'
+        ]);
     })->name('authors-add');
 
     Route::post('/add', [\App\Http\Controllers\AuthorController::class, 'create']);
@@ -63,7 +69,8 @@ Route::middleware('auth')->prefix('/authors')->group(function () {
 
     Route::get('/edit/{id}', function ($id) {
         return view('author/edit', [
-            'author' => \App\Models\Author::find($id)
+            'author' => \App\Models\Author::find($id),
+            'navCategory' => 'authors'
         ]);
     })->name('author-update');
 
@@ -77,7 +84,8 @@ Route::middleware('auth')->prefix('/books')->group(function () {
     Route::get('/add', function () {
         return view('book/add', [
             'authors' => \App\Models\Author::all(),
-            'genres' => \App\Models\Genre::all()
+            'genres' => \App\Models\Genre::all(),
+            'navCategory' => 'books'
         ]);
     })->name('book-add');
 
@@ -89,7 +97,8 @@ Route::middleware('auth')->prefix('/books')->group(function () {
         return view('book/edit', [
             'book' => \App\Models\Book::find($id),
             'authors' => \App\Models\Author::all(),
-            'genres' => \App\Models\Genre::all()
+            'genres' => \App\Models\Genre::all(),
+            'navCategory' => 'books'
         ]);
     })->name('book-update');
 

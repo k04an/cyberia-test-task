@@ -136,7 +136,8 @@ class BooksController extends Controller
             'books' => $books,
             'authors' => Author::all(),
             'genres' => Genre::all(),
-            'filter' => $request->isFilterApplied ? $request : false
+            'filter' => $request->isFilterApplied ? $request : false,
+            'navCategory' => 'books'
         ]);
     }
 }
