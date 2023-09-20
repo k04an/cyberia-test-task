@@ -10,12 +10,12 @@
     @endif
     <form action="" method="post">
         @csrf
-        <input type="text" placeholder="Имя" name="first_name" class="form-control w-50 mb-3">
-        <input type="text" placeholder="Фамилия" name="second_name" class="form-control w-50 mb-3">
+        <x-forms.input placeholder="Имя" name="first_name" />
+        <x-forms.input placeholder="Фамилия" name="second_name" />
         <hr class="w-50">
         <p>Данные аутентификации для REST API:</p>
-        <input type="text" placeholder="Логин" name="login" class="form-control w-50 mb-3">
-        <input type="text" placeholder="Пароль" name="password" class="form-control w-50 mb-3">
-        <button type="submit" class="btn btn-primary">Создать</button>
+        <x-forms.input placeholder="Логин" name="login" />
+        <x-forms.input placeholder="Пароль" name="password" />
+        <x-forms.submit text="Создать"/>
     </form>
 @endsection

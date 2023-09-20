@@ -10,7 +10,7 @@
     @endif
     <form action="" method="post">
         @csrf
-        <input type="text" placeholder="Название жанра" name="name" class="form-control w-50 mb-3">
-        <button type="submit" class="btn btn-primary">Создать</button>
+        <x-forms.input placeholder="Название жанра" name="name"/>
+        <x-forms.submit text="Создать" />
     </form>
 @endsection

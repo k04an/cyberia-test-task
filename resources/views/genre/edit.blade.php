@@ -10,7 +10,7 @@
     @endif
     <form action="" method="post">
         @csrf
-        <input type="text" placeholder="Название жанра" name="name" class="form-control w-50 mb-3" value="{{ $genre->name }}">
-        <button type="submit" class="btn btn-primary">Изменить</button>
+        <x-forms.input placeholder="Название жанра" name="name" value="{{ $genre->name }}"/>
+        <x-forms.submit text="Изменить" />
     </form>
 @endsection

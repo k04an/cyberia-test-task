@@ -5,45 +5,7 @@
 @endsection
 
 @section('content')
-    <form action="" method="get">
-        @csrf
-        <input type="hidden" name="isFilterApplied" value="1">
-        <div class="row mb-3" style="height: 190px">
-            <div class="col h-100">
-                <span>Поиск по названию:</span>
-                <input  @if ($filter) value="{{ $filter->search }}" @endif
-                name="search" type="text" placeholder="Название книги" class="form-control">
-                <span>Фильтрация по автору:</span>
-                <select name="author" class="form-select">
-                    <option value="">Нет</option>
-                    @foreach($authors as $author)
-                        <option @if($filter and $author->id == $filter->author) selected @endif
-                        value="{{ $author->id }}">{{ $author->first_name }} {{ $author->second_name }}</option>
-                    @endforeach
-                </select>
-                <span>Сортировка по названию:</span>
-                <select name="sort" class="form-select">
-                    <option value="">Нет</option>
-                    <option value="asc">В прямом порядке (По алфавиту)</option>
-                    <option value="desc">В обратном порядке</option>
-                </select>
-            </div>
-            <div class="col h-100">
-                <p>Фильтрация по жанрам:</p>
-                <div class="overflow-y-scroll h-100">
-                    @foreach($genres as $genre)
-                        <div class="form-check">
-                            <input  @if($filter and $filter->genres and array_search(strval($genre->id), $filter->genres) !== false) checked @endif
-                            name="genres[]" type="checkbox" class="form-check-input" id="genre-filter-{{ $genre->id }}" value="{{ $genre->id }}">
-                            <label class="form-check-label" id="genre-filter-{{ $genre->id }}">{{ $genre->name }}</label>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary px-5">Поиск</button>
-        <a href="{{ route('books') }}" class="btn btn-danger">Очистить фильтр</a>
-    </form>
+    @include('layout.filter')
     <hr class="my-4">
     <table class="table">
         <thead>
