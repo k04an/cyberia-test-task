@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('headtext')
-    Изменить запись автора - {{ $author->first_name }} {{ $author->second_name }}
+    {{ $title }}
 @endsection
 
 @section('content')
@@ -10,11 +10,11 @@
     @endif
     <form action="" method="post">
         @csrf
-        <x-forms.input placeholder="Имя" name="first_name" value="{{ $author->first_name }}" />
-        <x-forms.input placeholder="Фамилия" name="second_name" value="{{ $author->second_name }}" />
+        <x-forms.input placeholder="Имя" name="first_name" :value=" isset($author) ? $author->first_name : ''" />
+        <x-forms.input placeholder="Фамилия" name="second_name" :value="isset($author) ? $author->second_name : ''" />
         <hr class="w-50">
         <p>Данные аутентификации для REST API:</p>
-        <x-forms.input placeholder="Логин" name="login" value="{{ $author->login }}" />
+        <x-forms.input placeholder="Логин" name="login" :value="isset($author) ? $author->login : ''" />
         <x-forms.input placeholder="Пароль" name="password" />
         <x-forms.submit text="Изменить"/>
     </form>

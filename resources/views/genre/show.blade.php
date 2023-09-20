@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('headtext')
-    Изменить жанр - {{ $genre->name }}
+    {{ $title }}
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
     @endif
     <form action="" method="post">
         @csrf
-        <x-forms.input placeholder="Название жанра" name="name" value="{{ $genre->name }}"/>
-        <x-forms.submit text="Изменить" />
+        <x-forms.input placeholder="Название жанра" name="name" :value="isset($genre) ? $genre->name : ''"/>
+        <x-forms.submit text="Сохранить" />
     </form>
 @endsection

@@ -34,8 +34,9 @@ Route::middleware('auth')->prefix('/genres')->group(function () {
     })->name('genres');
 
     Route::get('/add', function () {
-        return view('genre/add', [
-            'navCategory' => 'genres'
+        return view('genre/show', [
+            'navCategory' => 'genres',
+            'title' => 'Добавить жанр'
         ]);
     })->name('genres-add');
 
@@ -44,9 +45,10 @@ Route::middleware('auth')->prefix('/genres')->group(function () {
     Route::get('/delete/{id}', [\App\Http\Controllers\GenreController::class, 'delete'])->name('genre-delete');
 
     Route::get('/edit/{id}', function ($id) {
-        return view('genre/edit', [
+        return view('genre/show', [
             'genre' => \App\Models\Genre::find($id),
-            'navCategory' => 'genres'
+            'navCategory' => 'genres',
+            'title' => 'Изменить жанр'
         ]);
     })->name('genre-update');
 
@@ -58,8 +60,9 @@ Route::middleware('auth')->prefix('/authors')->group(function () {
     Route::get('/', [\App\Http\Controllers\AuthorController::class, 'index'])->name('authors');
 
     Route::get('/add', function () {
-        return view('author/add', [
-            'navCategory' => 'authors'
+        return view('author/show', [
+            'navCategory' => 'authors',
+            'title' => 'Добавить автора'
         ]);
     })->name('authors-add');
 
@@ -68,9 +71,10 @@ Route::middleware('auth')->prefix('/authors')->group(function () {
     Route::get('/delete/{id}', [\App\Http\Controllers\AuthorController::class, 'delete'])->name('author-delete');
 
     Route::get('/edit/{id}', function ($id) {
-        return view('author/edit', [
+        return view('author/show', [
             'author' => \App\Models\Author::find($id),
-            'navCategory' => 'authors'
+            'navCategory' => 'authors',
+            'title' => 'Изменить запись автора'
         ]);
     })->name('author-update');
 
@@ -82,10 +86,11 @@ Route::middleware('auth')->prefix('/books')->group(function () {
     Route::get('/', [\App\Http\Controllers\BooksController::class, 'index'])->name('books');
 
     Route::get('/add', function () {
-        return view('book/add', [
+        return view('book/show', [
             'authors' => \App\Models\Author::all(),
             'genres' => \App\Models\Genre::all(),
-            'navCategory' => 'books'
+            'navCategory' => 'books',
+            'title' => 'Создать книгу'
         ]);
     })->name('book-add');
 
@@ -94,11 +99,12 @@ Route::middleware('auth')->prefix('/books')->group(function () {
     Route::get('/delete/{id}', [\App\Http\Controllers\BooksController::class, 'delete'])->name('book-delete');
 
     Route::get('/edit/{id}', function ($id) {
-        return view('book/edit', [
+        return view('book/show', [
             'book' => \App\Models\Book::find($id),
             'authors' => \App\Models\Author::all(),
             'genres' => \App\Models\Genre::all(),
-            'navCategory' => 'books'
+            'navCategory' => 'books',
+            'title' => 'Обновить запись книги'
         ]);
     })->name('book-update');
 
