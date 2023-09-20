@@ -5,6 +5,9 @@
 @endsection
 
 @section('content')
+    @if (session('success'))
+        <x-alert type="success" :text="session('success')" />
+    @endif
     <table class="table">
         <thead>
         <tr>

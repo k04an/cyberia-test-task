@@ -24,13 +24,13 @@ class AuthorController extends Controller
             'password' => Hash::make($validatedData['password'])
         ]);
 
-        return redirect(route('authors'));
+        return redirect(route('authors'))->with('success', 'Автор успешно создан');
     }
 
     public function delete($id) {
         Author::where('id', $id)->delete();
 
-        return redirect(route('authors'));
+        return redirect(route('authors'))->with('success', 'Автор успешно удален');
     }
 
     public function update(Request $request, $id) {
@@ -59,7 +59,7 @@ class AuthorController extends Controller
             $token->delete();
         }
 
-        return redirect(route('authors'));
+        return redirect(route('authors'))->with('success', 'Автор успешно обновлен');
     }
 
     public function index() {

@@ -6,7 +6,7 @@
 
 @section('content')
     @if ($errors->any())
-        <div class="alert alert-danger">Не удалось обновить книгу</div>
+        <x-alert type="error" :text="$errors->first()" />
     @endif
     <form action="" method="post">
         @csrf

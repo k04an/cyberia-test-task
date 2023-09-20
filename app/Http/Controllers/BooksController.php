@@ -56,7 +56,7 @@ class BooksController extends Controller
 
         Log::info("Book with id ".$newBook->id." has been created by ".auth()->user()->username);
 
-        return redirect(route('books'));
+        return redirect(route('books'))->with('success', 'Книга успешно создана');
     }
 
     public function delete($id) {
@@ -64,7 +64,7 @@ class BooksController extends Controller
 
         Book::where('id', $id)->delete();
 
-        return redirect(route('books'));
+        return redirect(route('books'))->with('success', 'Книга успешно удалена');
     }
 
     public function update(Request $request, $id) {
@@ -92,7 +92,7 @@ class BooksController extends Controller
 
         Log::info("Book with id ".$id." has been updated by ".auth()->user()->username);
 
-        return redirect(route('books'));
+        return redirect(route('books'))->with('success', 'Книга успешно обновлена');
     }
 
     public function index(Request $request) {

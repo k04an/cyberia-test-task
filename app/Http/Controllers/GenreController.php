@@ -17,13 +17,13 @@ class GenreController extends Controller
             'name' => $validatedData['name']
         ]);
 
-        return redirect(route('genres'));
+        return redirect(route('genres'))->with('success', 'Жанр успешно создан');
     }
 
     public function delete($id) {
         Genre::where('id', $id)->delete();
 
-        return redirect(route('genres'));
+        return redirect(route('genres'))->with('success', 'Жанр успешно удален');
     }
 
     public function update(Request $request, $id) {
@@ -40,6 +40,6 @@ class GenreController extends Controller
         $genre->name = $validated['name'];
         $genre->save();
 
-        return redirect(route('genres'));
+        return redirect(route('genres'))->with('success', 'Жанр успешно обновлен');
     }
 }
