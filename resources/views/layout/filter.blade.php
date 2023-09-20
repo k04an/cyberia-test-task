@@ -7,7 +7,7 @@
             <x-forms.input :value="$filter ? $filter->search : ''" placeholder="Название книги" name="search"/>
 
             <span>Фильтрация по автору:</span>
-            <x-forms.authorSelect :authors="$authors"  :filter="$filter"/>
+            <x-forms.select.author :authors="$authors"  :filter="$filter"/>
 
             <span>Сортировка по названию:</span>
             <select name="sort" class="form-select">
@@ -20,7 +20,7 @@
         <div class="col h-100">
             <p>Фильтрация по жанрам:</p>
             <div class="overflow-y-scroll h-100">
-                <x-forms.genresSelect :genres="$genres" :filter="$filter" />
+                <x-forms.select.genres :genres="$genres" :filter="$filter" />
             </div>
         </div>
     </div>
