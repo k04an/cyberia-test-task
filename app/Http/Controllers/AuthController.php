@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     public function login (Request $request) {
+        $validated = $request->validate([
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+
         $loginData = $request->only(['username', 'password']);
         $user = User::where('username', $loginData['username'])
             ->where('password', $loginData['password'])
@@ -20,9 +25,7 @@ class AuthController extends Controller
             Auth::login($user);
             return redirect('/');
         } else {
-            return redirect('/login')->withErrors([
-                'msg' => 'Login failed'
-            ]);
+            return redirect('/login')->withErrors('Ошибка входа. Проверте имя пользователя / пароль');
         }
     }
 
