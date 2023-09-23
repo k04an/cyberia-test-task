@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/login', [\App\Http\Controllers\AuthController::class, 'apiLogin']);
+Route::post('/login', [\App\Http\Controllers\Web\AuthController::class, 'apiLogin']);
 
 Route::get('/books', [\App\Http\Controllers\Api\BooksController::class, 'index']);
 Route::prefix('/book')->group(function () {

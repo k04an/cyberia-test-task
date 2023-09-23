@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
-use App\Enums\EditionEnum;
+use App\Http\Controllers\Controller;
 use App\Models\Author;
 use App\Models\Genre;
-use App\Services\BooksService;
-use Carbon\Traits\Converter;
+use App\Services\Web\BooksService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redirect;
-use App\Models\Book;
 
 class BooksController extends Controller
 {

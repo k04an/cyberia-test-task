@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
-use App\Models\Author;
-use App\Services\AuthorsService;
+use App\Http\Controllers\Controller;
+use App\Services\Web\AuthorsService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 
 class AuthorController extends Controller
 {

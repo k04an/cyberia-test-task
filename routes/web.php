@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,8 +22,8 @@ Route::get('/login', function () {
     }
     return view('login');
 })->name('login');
-Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
-Route::middleware('auth')->get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+Route::post('/login', [\App\Http\Controllers\Web\AuthController::class, 'login']);
+Route::middleware('auth')->get('/logout', [\App\Http\Controllers\Web\AuthController::class, 'logout'])->name('logout');
 
 // Операции над жанрами
 Route::middleware('auth')->prefix('/genres')->group(function () {
@@ -40,9 +41,9 @@ Route::middleware('auth')->prefix('/genres')->group(function () {
         ]);
     })->name('genres-add');
 
-    Route::post('/add', [\App\Http\Controllers\GenreController::class, 'create']);
+    Route::post('/add', [\App\Http\Controllers\Web\GenreController::class, 'create']);
 
-    Route::get('/delete/{id}', [\App\Http\Controllers\GenreController::class, 'delete'])->name('genre-delete');
+    Route::get('/delete/{id}', [\App\Http\Controllers\Web\GenreController::class, 'delete'])->name('genre-delete');
 
     Route::get('/edit/{id}', function ($id) {
         return view('genre/show', [
@@ -52,12 +53,12 @@ Route::middleware('auth')->prefix('/genres')->group(function () {
         ]);
     })->name('genre-update');
 
-    Route::post('/edit/{id}', [\App\Http\Controllers\GenreController::class, 'update']);
+    Route::post('/edit/{id}', [\App\Http\Controllers\Web\GenreController::class, 'update']);
 });
 
 // Операции над авторамми
 Route::middleware('auth')->prefix('/authors')->group(function () {
-    Route::get('/', [\App\Http\Controllers\AuthorController::class, 'index'])->name('authors');
+    Route::get('/', [\App\Http\Controllers\Web\AuthorController::class, 'index'])->name('authors');
 
     Route::get('/add', function () {
         return view('author/show', [
@@ -66,9 +67,9 @@ Route::middleware('auth')->prefix('/authors')->group(function () {
         ]);
     })->name('authors-add');
 
-    Route::post('/add', [\App\Http\Controllers\AuthorController::class, 'create']);
+    Route::post('/add', [\App\Http\Controllers\Web\AuthorController::class, 'create']);
 
-    Route::get('/delete/{id}', [\App\Http\Controllers\AuthorController::class, 'delete'])->name('author-delete');
+    Route::get('/delete/{id}', [\App\Http\Controllers\Web\AuthorController::class, 'delete'])->name('author-delete');
 
     Route::get('/edit/{id}', function ($id) {
         return view('author/show', [
@@ -78,12 +79,12 @@ Route::middleware('auth')->prefix('/authors')->group(function () {
         ]);
     })->name('author-update');
 
-    Route::post('/edit/{id}', [\App\Http\Controllers\AuthorController::class, 'update']);
+    Route::post('/edit/{id}', [\App\Http\Controllers\Web\AuthorController::class, 'update']);
 });
 
 // Операции над книгами
 Route::middleware('auth')->prefix('/books')->group(function () {
-    Route::get('/', [\App\Http\Controllers\BooksController::class, 'index'])->name('books');
+    Route::get('/', [\App\Http\Controllers\Web\BooksController::class, 'index'])->name('books');
 
     Route::get('/add', function () {
         return view('book/show', [
@@ -94,9 +95,9 @@ Route::middleware('auth')->prefix('/books')->group(function () {
         ]);
     })->name('book-add');
 
-    Route::post('/add', [\App\Http\Controllers\BooksController::class, 'create']);
+    Route::post('/add', [\App\Http\Controllers\Web\BooksController::class, 'create']);
 
-    Route::get('/delete/{id}', [\App\Http\Controllers\BooksController::class, 'delete'])->name('book-delete');
+    Route::get('/delete/{id}', [\App\Http\Controllers\Web\BooksController::class, 'delete'])->name('book-delete');
 
     Route::get('/edit/{id}', function ($id) {
         return view('book/show', [
@@ -108,5 +109,5 @@ Route::middleware('auth')->prefix('/books')->group(function () {
         ]);
     })->name('book-update');
 
-    Route::post('/edit/{id}', [\App\Http\Controllers\BooksController::class, 'update']);
+    Route::post('/edit/{id}', [\App\Http\Controllers\Web\BooksController::class, 'update']);
 });

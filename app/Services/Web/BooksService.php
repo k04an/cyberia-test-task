@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Web;
 
 use App\Enums\EditionEnum;
 use App\Models\Author;

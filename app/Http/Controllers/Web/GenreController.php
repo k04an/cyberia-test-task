@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
-use App\Models\Genre;
-use App\Services\GenresService;
+use App\Http\Controllers\Controller;
+use App\Services\Web\GenresService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class GenreController extends Controller
 {
