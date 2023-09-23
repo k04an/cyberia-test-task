@@ -5,27 +5,24 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AuthorsResource;
 use App\Models\Author;
+use App\Services\Api\AuthorsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AuthorController extends Controller
 {
-    public function index(Request $request) {
-        $pageNumber = ceil(Author::all()->count() / 10);
-
-        $validated = $request->validate([
-            'page' => 'required|numeric|min:1|max:'.$pageNumber
-        ]);
+    public function index(Request $request, AuthorsService $authorsService) {
+        $pagedList = $authorsService->index($request);
 
         return [
-            'page' => $validated['page'],
-            'pageNumber' => $pageNumber,
-            'data' => AuthorsResource::collection(Author::with('books')->offset(10 * ($validated['page'] - 1))->take(10)->get())
+            'page' => $pagedList['currentPage'],
+            'pageNumber' => $pagedList['pageNumber'],
+            'data' => $pagedList['data']
         ];
     }
 
-    public function get($id) {
-        $author = Author::with('books.genres')->get();
+    public function get($id, AuthorsService $authorsService) {
+        $author = $authorsService->getAuthor($id);
 
         if (!$author) {
             return response()->json([
@@ -36,39 +33,9 @@ class AuthorController extends Controller
         return $author;
     }
 
-    public function put(Request $request, $id) {
-        $author = Author::find($id);
+    public function put(Request $request, $id, AuthorsService $authorsService) {
+        $updatedAuthor = $authorsService->updateAuthor($request, $id);
 
-        if (!$author) {
-            return response()->json([
-                'message' => 'Author not found'
-            ], 404);
-        }
-
-        if ($author->id != auth('sanctum')->user()->id) {
-            return response()->json([
-                'message' => 'You can not update other author info'
-            ], 401);
-        }
-
-        $validated = $request->validate([
-            'first_name' => 'required',
-            'second_name' => 'required',
-            'login' => 'required|unique:authors,login,'.$id,
-            'password' => 'required'
-        ]);
-
-        $author->first_name = $validated['first_name'];
-        $author->second_name = $validated['second_name'];
-        $author->login = $validated['login'];
-        $author->password = Hash::make($validated['password']);
-        $author->save();
-
-        /* При обновленни данных автора отзываем все токены */
-        foreach ($author->tokens as $token) {
-            $token->delete();
-        }
-
-        return $author;
+        return $updatedAuthor;
     }
 }
