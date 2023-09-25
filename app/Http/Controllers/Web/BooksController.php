@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\Books\PostBookRequest;
+use App\Http\Requests\Web\Books\PutBookRequest;
 use App\Models\Author;
 use App\Models\Genre;
 use App\Services\Web\BooksService;
@@ -11,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 
 class BooksController extends Controller
 {
-    public function create(Request $request, BooksService $booksService) {
+    public function create(PostBookRequest $request, BooksService $booksService) {
         $createdBook = $booksService->createBook($request);
         Log::info("Book with id ".$createdBook->id." has been created by ".auth()->user()->username);
         return redirect(route('books'))->with('success', 'Книга успешно создана');
@@ -23,7 +25,7 @@ class BooksController extends Controller
         return redirect(route('books'))->with('success', 'Книга успешно удалена');
     }
 
-    public function update(Request $request, $id, BooksService $booksService) {
+    public function update(PutBookRequest $request, $id, BooksService $booksService) {
         $booksService->updateBook($request, $id);
         Log::info("Book with id ".$id." has been updated by ".auth()->user()->username);
         return redirect(route('books'))->with('success', 'Книга успешно обновлена');

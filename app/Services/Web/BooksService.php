@@ -3,6 +3,8 @@
 namespace App\Services\Web;
 
 use App\Enums\EditionEnum;
+use App\Http\Requests\Web\Books\PostBookRequest;
+use App\Http\Requests\Web\Books\PutBookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
@@ -11,14 +13,9 @@ use Illuminate\Support\Facades\Redirect;
 
 class BooksService
 {
-    public function createBook(Request $request)
+    public function createBook(PostBookRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|unique:books',
-            'author' => 'required',
-            'genres' => 'required|min:1',
-            'edition' => 'required'
-        ]);
+        $validatedData = $request->validated();
 
         /* Находим указанного автора */
         $author = Author::find($validatedData['author']);
@@ -61,14 +58,9 @@ class BooksService
         Book::where('id', $id)->delete();
     }
 
-    public function updateBook(Request $request, $id)
+    public function updateBook(PutBookRequest $request, $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|unique:books,name,'.$id,
-            'author' => 'required',
-            'genres' => 'required|min:1',
-            'edition' => 'required'
-        ]);
+        $validated = $request->validated();
 
         $author = Author::find(intval($validated['author']));
 

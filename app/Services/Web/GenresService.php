@@ -2,17 +2,15 @@
 
 namespace App\Services\Web;
 
+use App\Http\Requests\Web\Genres\PostPutGenreRequest;
 use App\Models\Genre;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class GenresService
 {
-    public function createGenre(Request $request)
+    public function createGenre(PostPutGenreRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|unique:genres'
-        ]);
+        $validatedData = $request->validated();
 
         Genre::create([
             'name' => $validatedData['name']
@@ -24,11 +22,9 @@ class GenresService
         Genre::where('id', $id)->delete();
     }
 
-    public function updateGenre(Request $request, $id)
+    public function updateGenre(PostPutGenreRequest $request, $id)
     {
-        $validated = $request->validate([
-            'name' => 'required'
-        ]);
+        $validated = $request->validated();
 
         $genre = Genre::find($id);
 

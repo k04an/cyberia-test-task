@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\Authors\PostAuthorRequest;
+use App\Http\Requests\Web\Authors\PutAuthorRequest;
 use App\Services\Web\AuthorsService;
-use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
-    public function create(Request $request, AuthorsService $authorsService) {
+    public function create(PostAuthorRequest $request, AuthorsService $authorsService) {
         $authorsService->createAuthor($request);
 
         return redirect(route('authors'))->with('success', 'Автор успешно создан');
@@ -20,7 +21,7 @@ class AuthorController extends Controller
         return redirect(route('authors'))->with('success', 'Автор успешно удален');
     }
 
-    public function update(Request $request, $id, AuthorsService $authorsService) {
+    public function update(PutAuthorRequest $request, $id, AuthorsService $authorsService) {
         $authorsService->updateAuthor($request, $id);
 
         return redirect(route('authors'))->with('success', 'Автор успешно обновлен');

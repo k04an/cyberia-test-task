@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BooksResource;
-use App\Models\Book;
+use App\Http\Requests\Api\Books\PutBookRequest;
 use App\Services\Api\BooksService;
-use Dotenv\Validator;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Ramsey\Uuid\Type\Integer;
 
 class BooksController extends Controller
 {
-    public function index(Request $request, BooksService $booksService) {
+    public function index(\App\Http\Requests\Api\Books\GetBooksRequest $request, BooksService $booksService) {
         $pagedList = $booksService->index($request);
 
         return [
@@ -48,7 +44,7 @@ class BooksController extends Controller
         }
     }
 
-    public function put(Request $request, $id, BooksService $booksService) {
+    public function put(PutBookRequest $request, $id, BooksService $booksService) {
         $updatedBook = $booksService->updateBook($request, $id);
 
         Log::info("Book with id ".$id." has been updated by author ".auth('sanctum')->user()->login);

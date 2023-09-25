@@ -22,8 +22,8 @@ Route::get('/login', function () {
     }
     return view('login');
 })->name('login');
-Route::post('/login', [\App\Http\Controllers\Web\AuthController::class, 'login']);
-Route::middleware('auth')->get('/logout', [\App\Http\Controllers\Web\AuthController::class, 'logout'])->name('logout');
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
+Route::middleware('auth')->get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
 // Операции над жанрами
 Route::middleware('auth')->prefix('/genres')->group(function () {

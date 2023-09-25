@@ -4,17 +4,14 @@ namespace App\Services\Api;
 
 use App\Http\Resources\BooksResource;
 use App\Models\Book;
-use Illuminate\Http\Request;
 
 class BooksService
 {
-    public function index(Request $request)
+    public function index(\App\Http\Requests\Api\Books\GetBooksRequest $request)
     {
         $pageNumber = ceil(Book::all()->count() / 10);
 
-        $validated = $request->validate([
-            'page' => 'required|numeric|min:1|max:'.$pageNumber
-        ]);
+        $validated = $request->validated();
 
         return [
             'currentPage' => $validated['page'],
@@ -49,7 +46,7 @@ class BooksService
         return true;
     }
 
-    public function updateBook(Request $request, $id)
+    public function updateBook(\App\Http\Requests\Api\Books\PutBookRequest $request, $id)
     {
         $book = Book::find($id);
 
@@ -65,11 +62,7 @@ class BooksService
             ], 401);
         }
 
-        $validated = $request->validate([
-            'name' => 'required|unique:books,name,'.$id,
-            'edition' => 'required|in:0,1,2',
-            'genres' => 'required|array|exists:genres,id'
-        ]);
+        $validated = $request->validated();
 
         $book->name = $validated['name'];
         $book->edition = intval($validated['edition']);

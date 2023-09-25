@@ -2,21 +2,17 @@
 
 namespace App\Services\Web;
 
+use App\Http\Requests\Web\Authors\PostAuthorRequest;
+use App\Http\Requests\Web\Authors\PutAuthorRequest;
 use App\Models\Author;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class AuthorsService
 {
-    public function createAuthor(Request $request)
+    public function createAuthor(PostAuthorRequest $request)
     {
-        $validatedData = $request->validate([
-            'first_name' => 'required',
-            'second_name' => 'required',
-            'login' => 'required|unique:authors',
-            'password' => 'required'
-        ]);
+        $validatedData = $request->validated();
 
         Author::create([
             'first_name' => $validatedData['first_name'],
@@ -31,14 +27,9 @@ class AuthorsService
         Author::where('id', $id)->delete();
     }
 
-    public function updateAuthor(Request $request, $id)
+    public function updateAuthor(PutAuthorRequest $request, $id)
     {
-        $validated = $request->validate([
-            'first_name' => 'required',
-            'second_name' => 'required',
-            'login' => 'required|unique:authors,login,'.$id,
-            'password' => 'required'
-        ]);
+        $validated = $request->validated();
 
         $author = Author::find($id);
 
