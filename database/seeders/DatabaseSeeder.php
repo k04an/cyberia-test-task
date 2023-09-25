@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             for ($j = 1; $j <= $bookNumber; $j++) {
                 $book = $author->books()->create([
                     'name' => $faker->realText(40),
-                    'edition' => intval(rand(0, 2))
+                    'edition' => intval(rand(1, 3))
                 ]);
 
 

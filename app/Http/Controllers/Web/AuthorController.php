@@ -9,25 +9,29 @@ use App\Services\Web\AuthorsService;
 
 class AuthorController extends Controller
 {
-    public function create(PostAuthorRequest $request, AuthorsService $authorsService) {
+    public function create(PostAuthorRequest $request, AuthorsService $authorsService)
+    {
         $authorsService->createAuthor($request);
 
         return redirect(route('authors'))->with('success', 'Автор успешно создан');
     }
 
-    public function delete($id, AuthorsService $authorsService) {
+    public function delete($id, AuthorsService $authorsService)
+    {
         $authorsService->deleteAuthor($id);
 
         return redirect(route('authors'))->with('success', 'Автор успешно удален');
     }
 
-    public function update(PutAuthorRequest $request, $id, AuthorsService $authorsService) {
+    public function update(PutAuthorRequest $request, $id, AuthorsService $authorsService)
+    {
         $authorsService->updateAuthor($request, $id);
 
         return redirect(route('authors'))->with('success', 'Автор успешно обновлен');
     }
 
-    public function index(AuthorsService $authorsService) {
+    public function index(AuthorsService $authorsService)
+    {
         return view('author/index', [
             'context' => $authorsService->indexAuthorsWithBooks(),
             'navCategory' => 'authors'

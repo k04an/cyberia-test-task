@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Authors\GetAuthorsRequest;
+use App\Http\Requests\Api\Authors\PutAuthorRequest;
 use App\Services\Api\AuthorsService;
 
 class AuthorController extends Controller
 {
-    public function index(GetAuthorsRequest $request, AuthorsService $authorsService) {
+    public function index(GetAuthorsRequest $request, AuthorsService $authorsService)
+    {
         $pagedList = $authorsService->index($request);
 
         return [
@@ -18,7 +20,8 @@ class AuthorController extends Controller
         ];
     }
 
-    public function get($id, AuthorsService $authorsService) {
+    public function get($id, AuthorsService $authorsService)
+    {
         $author = $authorsService->getAuthor($id);
 
         if (!$author) {
@@ -30,7 +33,8 @@ class AuthorController extends Controller
         return $author;
     }
 
-    public function put(\App\Http\Requests\Api\Authors\PutAuthorRequest $request, $id, AuthorsService $authorsService) {
+    public function put(PutAuthorRequest $request, $id, AuthorsService $authorsService)
+    {
         $updatedAuthor = $authorsService->updateAuthor($request, $id);
 
         return $updatedAuthor;

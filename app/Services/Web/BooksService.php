@@ -26,13 +26,13 @@ class BooksService
 
         /* Опредеяем тип издания */
         switch ($validatedData['edition']) {
-            case "0":
+            case "1":
                 $edition = EditionEnum::Graphical;
                 break;
-            case "1":
+            case "2":
                 $edition = EditionEnum::Digital;
                 break;
-            case "2":
+            case "3":
                 $edition = EditionEnum::Printed;
                 break;
         }

@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Books\GetBooksRequest;
 use App\Http\Requests\Api\Books\PutBookRequest;
 use App\Services\Api\BooksService;
 use Illuminate\Support\Facades\Log;
 
-class BooksController extends Controller
+class BookController extends Controller
 {
-    public function index(\App\Http\Requests\Api\Books\GetBooksRequest $request, BooksService $booksService) {
+    public function index(GetBooksRequest $request, BooksService $booksService)
+    {
         $pagedList = $booksService->index($request);
 
         return [
@@ -19,7 +21,8 @@ class BooksController extends Controller
         ];
     }
 
-    public function get($id, BooksService $booksService) {
+    public function get($id, BooksService $booksService)
+    {
         $book = $booksService->getBooks($id);
 
         if (!$book) {
@@ -31,7 +34,8 @@ class BooksController extends Controller
         return $book;
     }
 
-    public function delete($id, BooksService $booksService) {
+    public function delete($id, BooksService $booksService)
+    {
         $status = $booksService->deleteBook($id);
 
         if ($status !== true) {
@@ -44,7 +48,8 @@ class BooksController extends Controller
         }
     }
 
-    public function put(PutBookRequest $request, $id, BooksService $booksService) {
+    public function put(PutBookRequest $request, $id, BooksService $booksService)
+    {
         $updatedBook = $booksService->updateBook($request, $id);
 
         Log::info("Book with id ".$id." has been updated by author ".auth('sanctum')->user()->login);

@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function login (Request $request) {
+    public function login (Request $request)
+    {
         $validated = $request->validate([
             'username' => 'required',
             'password' => 'required'
@@ -29,12 +30,14 @@ class AuthController extends Controller
         }
     }
 
-    public function logout () {
+    public function logout ()
+    {
         Auth::logout();
         return redirect(route('home'));
     }
 
-    public function apiLogin(Request $request) {
+    public function apiLogin(Request $request)
+    {
         $validated = $request->validate([
             'login' => 'required',
             'password' => 'required'

@@ -84,7 +84,7 @@ Route::middleware('auth')->prefix('/authors')->group(function () {
 
 // Операции над книгами
 Route::middleware('auth')->prefix('/books')->group(function () {
-    Route::get('/', [\App\Http\Controllers\Web\BooksController::class, 'index'])->name('books');
+    Route::get('/', [\App\Http\Controllers\Web\BookController::class, 'index'])->name('books');
 
     Route::get('/add', function () {
         return view('book/show', [
@@ -95,9 +95,9 @@ Route::middleware('auth')->prefix('/books')->group(function () {
         ]);
     })->name('book-add');
 
-    Route::post('/add', [\App\Http\Controllers\Web\BooksController::class, 'create']);
+    Route::post('/add', [\App\Http\Controllers\Web\BookController::class, 'create']);
 
-    Route::get('/delete/{id}', [\App\Http\Controllers\Web\BooksController::class, 'delete'])->name('book-delete');
+    Route::get('/delete/{id}', [\App\Http\Controllers\Web\BookController::class, 'delete'])->name('book-delete');
 
     Route::get('/edit/{id}', function ($id) {
         return view('book/show', [
@@ -109,5 +109,5 @@ Route::middleware('auth')->prefix('/books')->group(function () {
         ]);
     })->name('book-update');
 
-    Route::post('/edit/{id}', [\App\Http\Controllers\Web\BooksController::class, 'update']);
+    Route::post('/edit/{id}', [\App\Http\Controllers\Web\BookController::class, 'update']);
 });

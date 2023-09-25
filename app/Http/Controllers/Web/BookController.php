@@ -11,27 +11,31 @@ use App\Services\Web\BooksService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class BooksController extends Controller
+class BookController extends Controller
 {
-    public function create(PostBookRequest $request, BooksService $booksService) {
+    public function create(PostBookRequest $request, BooksService $booksService)
+    {
         $createdBook = $booksService->createBook($request);
         Log::info("Book with id ".$createdBook->id." has been created by ".auth()->user()->username);
         return redirect(route('books'))->with('success', 'Книга успешно создана');
     }
 
-    public function delete($id, BooksService $booksService) {
+    public function delete($id, BooksService $booksService)
+    {
         $booksService->deleteBook($id);
         Log::info("Book with id ".$id." has been deleted by ".auth()->user()->username);
         return redirect(route('books'))->with('success', 'Книга успешно удалена');
     }
 
-    public function update(PutBookRequest $request, $id, BooksService $booksService) {
+    public function update(PutBookRequest $request, $id, BooksService $booksService)
+    {
         $booksService->updateBook($request, $id);
         Log::info("Book with id ".$id." has been updated by ".auth()->user()->username);
         return redirect(route('books'))->with('success', 'Книга успешно обновлена');
     }
 
-    public function index(Request $request, BooksService $booksService) {
+    public function index(Request $request, BooksService $booksService)
+    {
         $booksList = $booksService->indexBooksWithFilters($request);
 
         return view('book/index', [

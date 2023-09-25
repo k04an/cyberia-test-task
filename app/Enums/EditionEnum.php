@@ -2,8 +2,8 @@
 
 namespace App\Enums;
 
-enum EditionEnum:string {
-    case Graphical = '0';
-    case Digital = '1';
-    case Printed = '2';
+enum EditionEnum:int {
+    case Graphical = 1;
+    case Digital = 2;
+    case Printed = 3;
 }

@@ -30,8 +30,8 @@ class PutBookRequest extends FormRequest
                 Rule::unique('books')->ignore($this->route('id'))
             ],
             'author' => 'required',
-            'genres' => 'required|min:1',
-            'edition' => 'required'
+            'genres' => 'required|min:1|array|exists:genres,id',
+            'edition' => 'required|in:1,2,3'
         ];
     }
 }
